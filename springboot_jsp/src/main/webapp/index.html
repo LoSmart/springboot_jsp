@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>录题</title>
+		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    	function gradeChange(){
+		    var objS = document.getElementById("type");
+		    var grade = objS.options[objS.selectedIndex].value;
+		    if(grade==0){
+		    	document.getElementById("questionTitle").style.display='block';
+		    	document.getElementById("questionImg").style.display='none';
+		    	document.getElementById("questionImg2").style.display='none';
+		    	document.getElementById("answerTitle").style.display='block';
+		    	document.getElementById("answerImg").style.display='none';
+		    	document.getElementById("answerImg2").style.display='none';
+		    }else if(grade==1){
+		    	document.getElementById("questionTitle").style.display='block';
+		    	document.getElementById("questionImg").style.display='none';
+		    	document.getElementById("questionImg2").style.display='none';
+		    	document.getElementById("answerTitle").style.display='none';
+		    	document.getElementById("answerImg").style.display='block';
+		    	document.getElementById("answerImg2").style.display='none';
+		    }else if(grade==2){
+		    	document.getElementById("questionTitle").style.display='block';
+		    	document.getElementById("questionImg").style.display='block';
+		    	document.getElementById("questionImg2").style.display='none';
+		    	document.getElementById("answerTitle").style.display='block';
+		    	document.getElementById("answerImg").style.display='none';
+		    	document.getElementById("answerImg2").style.display='none';
+		    }else if(grade==3){
+		    	document.getElementById("questionTitle").style.display='block';
+		    	document.getElementById("questionImg").style.display='none';
+		    	document.getElementById("questionImg2").style.display='block';
+		    	document.getElementById("answerTitle").style.display='none';
+		    	document.getElementById("answerImg").style.display='none';
+		    	document.getElementById("answerImg2").style.display='block';
+		    }
+    	}
+    	function commit(){
+    		var question = new FormData();
+    		var question1 = new FormData();
+    		var question2 = new FormData();
+    		var question3 = new FormData();
+    		var question4 = new FormData();
+    		
+    		var weightObjS = document.getElementById("weight");
+    		var weight = weightObjS.options[weightObjS.selectedIndex].value;
+    		
+    		var speciesObjS = document.getElementById("species");
+    		var speciesId = speciesObjS.options[speciesObjS.selectedIndex].value;
+    		
+    		var typeObjS = document.getElementById("type");
+    		var type = typeObjS.options[typeObjS.selectedIndex].value;
+    		
+    		var levelObjS = document.getElementById("level");
+    		var level = levelObjS.options[levelObjS.selectedIndex].value;
+    		
+    		var teamObjS = document.getElementById("team");
+    		var teamId = levelObjS.options[teamObjS.selectedIndex].value;
+    		
+    		question.weight = weight;
+    		question.speciesId = speciesId;
+    		question.type = type;
+    		question.level = level;
+    		question.teamId = teamId;
+    		
+    		var answer1 = new FormData();
+			var answer2 = new FormData();
+			var answer3 = new FormData();
+			var answer4 = new FormData();
+    		
+    		if(type==0 || type==1 || type==2){
+    			var questionTitle = document.getElementById("questionTitle").value;
+    			var questionImg = document.getElementById("questionImg").firstChild.getAttribute("value");
+    			question.title = questionTitle;
+    			question.imageUrl = questionImg;
+    			//答案文字
+    			var answerTitleFirst = document.getElementById("answerTitleFirst").value;
+    			answer1.result = answerTitleFirst;
+    			var answerTitleSecond = document.getElementById("answerTitleSecond").value;
+    			answer2.result = answerTitleSecond;
+    			var answerTitleThird = document.getElementById("answerTitleThird").value;
+    			answer3.result = answerTitleThird;
+    			//答案图片
+    			var answerImgFirst = document.getElementById("answerImgFirst").getAttribute("value");
+    			answer1.imageUrl = answerImgFirst;
+    			var answerImgSecond = document.getElementById("answerImgSecond").getAttribute("value");
+    			answer2.imageUrl = answerImgSecond;
+    			var answerImgThird = document.getElementById("answerImgThird").getAttribute("value");
+    			answer3.imageUrl = answerImgThird;
+    			if(type==0 || type==2){
+    				
+    				var isRightTitle1ObjS = document.getElementById("isRightTitle1");
+    				var isRightTitle1 = isRightTitle1ObjS.options[isRightTitle1ObjS.selectedIndex].value;
+    				answer1.isRight = isRightTitle1;
+    				
+    				var isRightTitle2ObjS = document.getElementById("isRightTitle2");
+    				var isRightTitle2 = isRightTitle2ObjS.options[isRightTitle2ObjS.selectedIndex].value;
+    				answer2.isRight = isRightTitle2;
+    				
+    				var isRightTitle3ObjS = document.getElementById("isRightTitle3");
+    				var isRightTitle3 = isRightTitle3ObjS.options[isRightTitle3ObjS.selectedIndex].value;
+    				answer3.isRight = isRightTitle3;
+    			}else{
+    				
+    				var isRightImg1ObjS = document.getElementById("isRightImg1");
+    				var isRightImg1 = isRightImg1ObjS.options[isRightImg1ObjS.selectedIndex].value;
+    				answer1.isRight = isRightImg1;
+    				
+    				var isRightImg2ObjS = document.getElementById("isRightImg2");
+    				var isRightImg2 = isRightImg2ObjS.options[isRightImg2ObjS.selectedIndex].value;
+    				answer2.isRight = isRightImg2;
+    				
+    				var isRightImg3ObjS = document.getElementById("isRightImg3");
+    				var isRightImg3 = isRightImg3ObjS.options[isRightImg3ObjS.selectedIndex].value;
+    				answer3.isRight = isRightImg3;
+    			}
+    			var arr = [];
+    			arr.push(answer1);
+    			arr.push(answer2);
+    			arr.push(answer3);
+    			if(type==1){
+    				var answerImgFourth = document.getElementById("answerImgFourth").getAttribute("value");
+        			answer4.imageUrl = answerImgFourth;
+        			var isRightImg4ObjS = document.getElementById("isRightImg4");
+    				var isRightImg4 = isRightImg4ObjS.options[isRightImg4ObjS.selectedIndex].value;
+    				answer4.isRight = isRightImg4;
+    				arr.push(answer4);
+    			}
+    			question.answers = arr;
+    			console.log(question);
+    		}else{
+    			//问题文字
+    			var questionTitle = document.getElementById("questionTitle").value;
+    			question.title = questionTitle;
+    			//问题图片
+    			var questionImgFirst = document.getElementById("questionImgFirst").getAttribute("value");
+    			question1.imageUrl = questionImgFirst;
+    			var questionImgSecond = document.getElementById("questionImgSecond").getAttribute("value");
+    			question2.imageUrl = questionImgSecond;
+    			var questionImgThird = document.getElementById("questionImgThird").getAttribute("value");
+    			question3.imageUrl = questionImgThird;
+    			var questionImgFourth = document.getElementById("questionImgFourth").getAttribute("value");
+    			question4.imageUrl = questionImgFourth;
+    			
+    			//答案图片
+    			var answerImgToFirst = document.getElementById("answerImgToFirst").getAttribute("value");
+    			answer1.imageUrl = answerImgToFirst;
+    			var isChoose1ObjS = document.getElementById("isChoose1");
+				var isChoose1 = isChoose1ObjS.options[isChoose1ObjS.selectedIndex].value;
+				answer1.isRight = '1';
+    			
+    			var answerImgToSecond = document.getElementById("answerImgToSecond").getAttribute("value");
+    			answer2.imageUrl = answerImgToSecond;
+    			var isChoose2ObjS = document.getElementById("isChoose2");
+				var isChoose2 = isChoose2ObjS.options[isChoose2ObjS.selectedIndex].value;
+				answer2.isRight = '1';
+    			
+    			var answerImgToThird = document.getElementById("answerImgToThird").getAttribute("value");
+    			answer3.imageUrl = answerImgToThird;
+    			var isChoose3ObjS = document.getElementById("isChoose3");
+				var isChoose3 = isChoose3ObjS.options[isChoose3ObjS.selectedIndex].value;
+				answer3.isRight = '1';
+    			
+    			var answerImgToFourth = document.getElementById("answerImgToFourth").getAttribute("value");
+    			answer4.imageUrl = answerImgToFourth;
+    			var isChoose4ObjS = document.getElementById("isChoose4");
+				var isChoose4 = isChoose4ObjS.options[isChoose4ObjS.selectedIndex].value;
+				answer4.isRight = '1';
+    			
+				for(var i=1;i<5;i++){
+					if(eval("isChoose"+i)==1){
+						var answerArr1 = [];
+						answerArr1.push(eval("answer"+i));
+						question1.answers = answerArr1;
+					}else if(eval("isChoose"+i)==2){
+						var answerArr2 = [];
+						answerArr2.push(eval("answer"+i));
+						question2.answers = answerArr2;
+					}else if(eval("isChoose"+i)==3){
+						var answerArr3 = [];
+						answerArr3.push(eval("answer"+i));
+						question3.answers = answerArr3;
+					}else if(eval("isChoose"+i)==4){
+						var answerArr4 = [];
+						answerArr4.push(eval("answer"+i));
+						question4.answers = answerArr4;
+					}
+				}
+				
+    			var questions = [];
+    			questions.push(question1);
+    			questions.push(question2);
+    			questions.push(question3);
+    			questions.push(question4);
+    			question.questions = questions;
+    		}
+    		console.log(JSON.stringify(question));
+    		$.ajax({
+    			url:'http://192.168.3.101:8082/insert',
+    			type:'post',
+    			async:false,
+    			contentType:'application/json',
+    			data:JSON.stringify(question),
+    			success:function(res){
+    				console.log(res);
+    				window.location.reload();
+    			}
+    		})
+    	}
+    	
+    	function imgChange(id,e) {
+    	    //console.info(e.target.files[0]);//图片文件
+    	    /* var dom =$("input[id^='imgTest']")[0];
+    	    console.info(dom.value);//这个是文件的路径 C:\fakepath\icon (5).png */
+    	    //console.log(e.target.value);//这个也是文件的路径和上面的dom.value是一样的
+    	    var reader = new FileReader();
+    	    reader.onload = (function (file) {
+    	        return function (e) {
+    	           //console.info(this.result); //这个就是base64的数据了
+    	            var sss=document.getElementById(id);
+    	            sss.setAttribute("value",this.result);
+    	        };
+    	    })(e.target.files[0]);
+    	    reader.readAsDataURL(e.target.files[0]);
+    	}
+    	
+		</script>
+		
+		<style>
+
+			h2 {
+				text-align: center;
+			}
+
+			.container {
+				width: 390px;
+				padding: 20px;
+				border: 1px solid black;
+				margin: 10px auto;
+			}
+
+			.title {
+				font-size: 18px;
+				font-weight: bold;
+				margin-bottom: 20px;
+			}
+
+			.textInput {
+				margin-top: 20px;
+				width: 385px;
+			}
+
+			.submitBtn {
+				margin-top: 20px;
+			}
+
+		</style>
+</head>
+<body>
+		<h2>录题</h2>
+		
+		<div class="container">
+			<div class="title">问题：</div>
+
+			<select id="team">
+				<option value="0" selected>球队</option>
+				<option value="1">广州恒大</option>
+				<option value="2">山东鲁能</option>
+				<option value="3">北京国安</option>
+				<option value="4">上海申花</option>
+				<option value="5">河南建业</option>
+				<option value="6">天津泰达</option>
+				<option value="7">上海上港</option>
+				<option value="8">天津权健</option>
+				<option value="9">江苏苏宁</option>
+				<option value="10">广州富力</option>
+				<option value="11">大连一方</option>
+				<option value="12">河北华夏</option>
+				<option value="13">北京人和</option>
+				<option value="14">重庆斯威</option>
+				<option value="15">武汉卓尔</option>
+				<option value="16">深圳佳兆业</option>
+			</select>
+			
+			<select id="level">
+				<option value="0" selected>题难度</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+			</select>
+
+			<select id="weight">
+				<option value="0" selected>权重</option>
+				<option value="1">1</option>
+				<option value="4">4</option>
+			</select>
+
+			<select id="species">
+				<option value="0" selected>题目类型</option>
+				<option value="1">球队文化</option>
+				<option value="2">历史战绩</option>
+				<option value="3">战术执教</option>
+				<option value="4">明星球员</option>
+				<option value="5">周边八卦</option>
+				<option value="5">球队综合</option>
+			</select>
+
+			<select id="type" onchange="gradeChange()">
+				<option value="0" selected>文字+文字</option>
+				<option value="1">文字+图片</option>
+				<option value="2">图片+文字</option>
+				<option value="3">图片+图片</option>
+			</select>
+
+			<input type="text" placeholder="题目" class="textInput" id="questionTitle" />
+		</div>
+
+		<div class="container">
+			<div class="title">答案</div>
+
+			<table>
+					<tr>
+						<!-- <td width="45%" id="questionTitle"></td> -->
+						<td width="45%" id="questionImg" style="display:none"><input id="questionInputImg" onchange="imgChange('questionInputImg',event)" type="file"/></td>
+						<td width="45%" id="questionImg2" style="display:none">
+							<input id="questionImgFirst" onchange="imgChange('questionImgFirst',event)" type="file"/>
+							<input id="questionImgSecond" onchange="imgChange('questionImgSecond',event)" type="file"/>
+							<input id="questionImgThird" onchange="imgChange('questionImgThird',event)" type="file"/>
+							<input id="questionImgFourth" onchange="imgChange('questionImgFourth',event)" type="file"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="45%" id="answerTitle">
+							<input id="answerTitleFirst" type="text" placeholder="答案"/>
+							<select id="isRightTitle1">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+							<input id="answerTitleSecond" type="text" placeholder="答案"/>
+							<select id="isRightTitle2">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+							<input id="answerTitleThird" type="text" placeholder="答案"/>
+							<select id="isRightTitle3">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+						</td>
+						<td width="45%" id="answerImg" style="display:none">
+							<input id="answerImgFirst" onchange="imgChange('answerImgFirst',event)" type="file"/>
+							<select id="isRightImg1">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+							<input id="answerImgSecond" onchange="imgChange('answerImgSecond',event)" type="file"/>
+							<select id="isRightImg2">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+							<input id="answerImgThird" onchange="imgChange('answerImgThird',event)" type="file"/>
+							<select id="isRightImg3">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+							<input id="answerImgFourth" onchange="imgChange('answerImgFourth',event)" type="file"/>
+							<select id="isRightImg4">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+						</td>
+						<td width="45%" id="answerImg2" style="display:none">
+							<input id="answerImgToFirst" onchange="imgChange('answerImgToFirst',event)" type="file"/>
+							<select id="isChoose1">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+							<input id="answerImgToSecond" onchange="imgChange('answerImgToSecond',event)" type="file"/>
+							<select id="isChoose2">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+							<input id="answerImgToThird" onchange="imgChange('answerImgToThird',event)" type="file"/>
+							<select id="isChoose3">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+							<input id="answerImgToFourth" onchange="imgChange('answerImgToFourth',event)" type="file"/>
+							<select id="isChoose4">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<input type="button" value="确认" onclick="commit()" class="submitBtn" />
+		</div>
+    
+</body>
+</html>

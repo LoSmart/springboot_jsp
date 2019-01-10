@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.QuestionMapper">
+	<insert id="insert" parameterType="model.Question" useGeneratedKeys="true" keyProperty="id">
+		insert into t_question
+			(teamId,
+			speciesId,
+			pId,
+			title,
+			imageUrl,
+			weight,
+			type,
+			level,
+			createTime)
+		values
+			(#{teamId},
+			#{speciesId},
+			#{pId},
+			#{title},
+			#{imageUrl},
+			#{weight},
+			#{type},
+			#{level},
+			#{createTime})
+	</insert>
+	
+	<insert id="insertBatch" parameterType="model.Question">
+		insert into t_question
+			(teamId,
+			speciesId,
+			pId,
+			title,
+			imageUrl,
+			weight,
+			type,
+			level,
+			createTime)
+		values
+			<foreach collection ="list" item="question" separator =",">
+         		(#{question.teamId},
+         		#{question.speciesId},
+         		#{question.pId},
+         		#{question.imageUrl},
+         		#{question.weight},
+         		#{question.type},
+         		#{question.level},
+         		#{question.createTime})
+    		</foreach>
+	</insert>
+</mapper>

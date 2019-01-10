@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AnswerMapper">
+	<insert id="insertBatch" parameterType="model.Answer">
+		insert into t_answer
+			(questionId,
+			result,
+			imageUrl,
+			isRight,
+			createTime)
+		values
+			<foreach collection ="list" item="answer" separator =",">
+         		(#{answer.questionId},
+         		#{answer.result},
+         		#{answer.imageUrl},
+         		#{answer.isRight},
+         		#{answer.createTime})
+    		</foreach>
+	</insert>
+	
+	<insert id="insert" parameterType="model.Answer">
+		insert into t_answer
+			(questionId,
+			result,
+			imageUrl,
+			isRight,
+			createTime)
+		values
+			(#{questionId},
+       		#{result},
+       		#{imageUrl},
+       		#{isRight},
+       		#{createTime})
+	</insert>
+</mapper>
